@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TALASH Ai</string>
+    <string name="title_activity_main">TALASH Ai</string>
+    <string name="package_name">com.shamstalash.talashai</string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "TALASH Ai",
+  "description": "TALASH Ai — Fast, intelligent multi-language AI assistant and verified Pashto Islamic Learning platform. Created by Shams Talash.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
