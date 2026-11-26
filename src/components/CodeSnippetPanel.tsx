@@ -179,17 +179,17 @@ print(response.text)`;
   };
 
   return (
-    <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 border-b border-slate-800 bg-slate-950">
+    <div className="bg-[#040916] rounded-2xl border border-sky-500/30 overflow-hidden shadow-[0_10px_28px_rgba(2,6,23,0.75)]">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 border-b border-sky-500/20 bg-[#081229]">
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1 p-0.5 bg-slate-900 rounded-lg border border-slate-800">
+          <div className="flex items-center gap-1 p-0.5 bg-[#040916] rounded-lg border border-sky-500/25">
             <button
               type="button"
               onClick={() => setSnippetKind('chat')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 snippetKind === 'chat'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'talash-neon-btn text-white'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Multi-turn Chat
@@ -199,22 +199,22 @@ print(response.text)`;
               onClick={() => setSnippetKind('generate')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 snippetKind === 'generate'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'talash-neon-btn text-white'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Single Generate
             </button>
           </div>
 
-          <div className="flex items-center gap-1 p-0.5 bg-slate-900 rounded-lg border border-slate-800">
+          <div className="flex items-center gap-1 p-0.5 bg-[#040916] rounded-lg border border-sky-500/25">
             <button
               type="button"
               onClick={() => setLanguage('typescript')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 language === 'typescript'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'talash-neon-btn text-white'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               TypeScript
@@ -224,8 +224,8 @@ print(response.text)`;
               onClick={() => setLanguage('python')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 language === 'python'
-                  ? 'bg-slate-800 text-white'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'talash-neon-btn text-white'
+                  : 'text-slate-400 hover:text-white'
               }`}
             >
               Python
@@ -236,9 +236,9 @@ print(response.text)`;
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-md transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-200 hover:text-white bg-[#040916] hover:bg-sky-500/20 border border-sky-500/30 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
         >
-          {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+          {copied ? <Check className="w-3.5 h-3.5 text-cyan-400" /> : <Copy className="w-3.5 h-3.5" />}
           <span>{copied ? 'Copied' : 'Copy snippet'}</span>
         </button>
       </div>

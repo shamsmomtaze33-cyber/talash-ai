@@ -1,5 +1,5 @@
-# TALASH Ai Release APK / AAB GitHub Actions Workflow
-name: Build TALASH Ai Android APK
+# TALASH Ai Release APK & Google Play AAB GitHub Actions Workflow
+name: Build TALASH Ai Android Release (APK & AAB)
 
 on:
   workflow_dispatch:
@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/release.jks
 
-      - name: Generate Gradle Wrapper & Build Debug + Release APK
+      - name: Generate Gradle Wrapper & Build Debug, Release APK & Play Store AAB
         env:
           TALASH_APP_URL: ${{ github.event.inputs.talash_app_url }}
           ANDROID_KEYSTORE_PATH: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' && 'release.jks' || '' }}
@@ -50,15 +50,15 @@ jobs:
         run: |
           cd android
           gradle wrapper --gradle-version 8.9
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug bundleRelease
           if [ -n "$ANDROID_KEYSTORE_PATH" ]; then
-            ./gradlew assembleRelease bundleRelease
+            ./gradlew assembleRelease
           fi
 
-      - name: Upload TALASH Ai APK Artifacts
+      - name: Upload TALASH Ai APK & AAB Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: talash-ai-android-builds
+          name: talash-ai-android-release
           path: |
             android/app/build/outputs/apk/debug/*.apk
             android/app/build/outputs/apk/release/*.apk

@@ -33,7 +33,7 @@ Inside Xcode -> **App** target:
    - `NSMicrophoneUsageDescription`: `TALASH Ai uses the microphone for Pashto, Arabic, and English voice input.`
    - `NSPhotoLibraryUsageDescription`: `TALASH Ai uses photo library access so you can upload images for analysis.`
    - `NSCameraUsageDescription`: `TALASH Ai uses the camera to capture images for AI analysis.`
-5. Set the App Icon asset using `/public/pwa-512x512.png` (no transparency) and LaunchScreen background color `#18181b`.
+5. Set the App Icon asset using `/public/pwa-512x512.png` (no transparency) and LaunchScreen background color `#030712`.
 
 ## 4. Archive & Upload to TestFlight / App Store Connect
 1. Select **Any iOS Device (arm64)** as the build target.

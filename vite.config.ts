@@ -21,12 +21,15 @@ export default defineConfig(() => {
           'pwa-192x192.png',
           'pwa-512x512.png',
           'pwa-maskable-512x512.png',
+          'og-cover.png',
         ],
         workbox: {
           navigateFallback: '/index.html',
           navigateFallbackDenylist: [/^\/api\//, /^\/robots\.txt$/, /^\/sitemap\.xml$/],
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
           cleanupOutdatedCaches: true,
+          skipWaiting: true,
+          clientsClaim: true,
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
@@ -54,8 +57,8 @@ export default defineConfig(() => {
           scope: '/',
           display: 'standalone',
           orientation: 'portrait-primary',
-          theme_color: '#18181b',
-          background_color: '#ffffff',
+          theme_color: '#030712',
+          background_color: '#030712',
           categories: ['education', 'productivity', 'utilities'],
           icons: [
             {

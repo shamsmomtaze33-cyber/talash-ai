@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 
 interface MarkdownOutputProps {
   content: string;
@@ -22,7 +23,7 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
       return (
         <code
           key={idx}
-          className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-mono text-[13px] border border-slate-200"
+          className="px-1.5 py-0.5 rounded-md bg-slate-900/90 text-cyan-200 font-mono text-[13px] border border-sky-500/30"
         >
           {token.slice(1, -1)}
         </code>
@@ -30,7 +31,7 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
     }
     if (token.startsWith('**') && token.endsWith('**') && token.length > 4) {
       return (
-        <strong key={idx} className="font-semibold text-slate-900">
+        <strong key={idx} className="font-semibold text-white">
           {token.slice(2, -2)}
         </strong>
       );
@@ -43,7 +44,7 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
           href={linkMatch[2].trim()}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-medium text-[#0e8f6e] hover:underline underline-offset-2"
+          className="font-medium text-sky-400 hover:text-cyan-300 hover:underline underline-offset-2"
         >
           {linkMatch[1]}
         </a>
@@ -65,6 +66,53 @@ function isTableSeparatorLine(line: string): boolean {
   return cells.length >= 2 && cells.every((c) => /^:?-{2,}:?$/.test(c));
 }
 
+function CodeBlock({ lang, code }: { lang: string; code: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      // Ignore clipboard failures
+    }
+  };
+
+  return (
+    <div
+      dir="ltr"
+      className="my-3 rounded-xl overflow-hidden border border-sky-500/30 bg-[#040916] text-left shadow-[0_8px_24px_rgba(2,6,23,0.65)]"
+    >
+      <div className="px-3.5 py-2 text-[11px] font-mono text-slate-300 border-b border-sky-500/20 bg-[#081229] flex items-center justify-between gap-2">
+        <span className="uppercase tracking-wider text-sky-300 font-semibold">
+          {lang || 'code'}
+        </span>
+        <button
+          type="button"
+          onClick={() => void handleCopy()}
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-sky-500/20 border border-sky-500/25 text-slate-200 hover:text-white transition-colors cursor-pointer"
+        >
+          {copied ? (
+            <>
+              <Check className="w-3 h-3 text-cyan-400" />
+              <span className="text-cyan-300">Copied</span>
+            </>
+          ) : (
+            <>
+              <Copy className="w-3 h-3" />
+              <span>Copy</span>
+            </>
+          )}
+        </button>
+      </div>
+      <pre className="p-4 text-[13px] leading-relaxed text-slate-100 font-mono overflow-x-auto">
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
 export function MarkdownOutput({
   content,
   isJson = false,
@@ -82,11 +130,7 @@ export function MarkdownOutput({
     } catch {
       // Keep raw stream text until JSON completes
     }
-    return (
-      <pre className="p-4 rounded-lg bg-slate-900 text-slate-100 font-mono text-[13px] leading-relaxed overflow-x-auto border border-slate-800">
-        <code>{formatted}</code>
-      </pre>
-    );
+    return <CodeBlock lang="json" code={formatted} />;
   }
 
   const lines = content.split('\n');
@@ -105,22 +149,7 @@ export function MarkdownOutput({
         codeLines.push(lines[i]);
         i += 1;
       }
-      blocks.push(
-        <div
-          key={`code-${i}`}
-          dir="ltr"
-          className="my-3 rounded-lg overflow-hidden border border-slate-800 bg-slate-900 text-left"
-        >
-          {lang && (
-            <div className="px-3.5 py-1.5 text-[11px] font-mono text-slate-400 border-b border-slate-800 bg-slate-950">
-              {lang}
-            </div>
-          )}
-          <pre className="p-4 text-[13px] leading-relaxed text-slate-100 font-mono overflow-x-auto">
-            <code>{codeLines.join('\n')}</code>
-          </pre>
-        </div>
-      );
+      blocks.push(<CodeBlock key={`code-${i}`} lang={lang} code={codeLines.join('\n')} />);
       i += 1;
       continue;
     }
@@ -141,15 +170,15 @@ export function MarkdownOutput({
       blocks.push(
         <div
           key={`tbl-${i}`}
-          className="my-3.5 w-full overflow-x-auto rounded-xl border border-slate-200 bg-white"
+          className="my-3.5 w-full overflow-x-auto rounded-xl border border-sky-500/30 bg-[#071127]/90"
         >
           <table className="w-full border-collapse text-[13px]">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
+              <tr className="bg-[#0c1b3a] border-b border-sky-500/25">
                 {headers.map((header, idx) => (
                   <th
                     key={idx}
-                    className={`px-3.5 py-2.5 font-semibold text-slate-900 whitespace-nowrap ${
+                    className={`px-3.5 py-2.5 font-semibold text-white whitespace-nowrap ${
                       dir === 'rtl' ? 'text-right' : 'text-left'
                     }`}
                   >
@@ -158,13 +187,13 @@ export function MarkdownOutput({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-sky-500/15">
               {bodyRows.map((row, rIdx) => (
-                <tr key={rIdx} className="hover:bg-slate-50/70">
+                <tr key={rIdx} className="hover:bg-sky-500/5">
                   {headers.map((_, cIdx) => (
                     <td
                       key={cIdx}
-                      className={`px-3.5 py-2.5 text-slate-700 align-top ${
+                      className={`px-3.5 py-2.5 text-slate-200 align-top ${
                         dir === 'rtl' ? 'text-right' : 'text-left'
                       }`}
                     >
@@ -182,7 +211,7 @@ export function MarkdownOutput({
 
     // Horizontal rule
     if (/^\s*([-*_])\1{2,}\s*$/.test(line)) {
-      blocks.push(<hr key={`hr-${i}`} className="my-4 border-slate-200" />);
+      blocks.push(<hr key={`hr-${i}`} className="my-4 border-sky-500/20" />);
       i += 1;
       continue;
     }
@@ -197,7 +226,7 @@ export function MarkdownOutput({
       blocks.push(
         <blockquote
           key={`bq-${i}`}
-          className="my-3.5 px-4 py-3 rounded-xl bg-slate-50/90 border border-slate-200/90 text-slate-800 text-[15px] leading-[1.75]"
+          className="my-3.5 px-4 py-3 rounded-xl bg-[#0a1834]/90 border border-sky-400/35 text-slate-100 text-[15px] leading-[1.75] shadow-[inset_0_1px_0_rgba(56,189,248,0.12)]"
         >
           {quoteLines.map((ql, idx) => (
             <p key={idx} className={idx > 0 ? 'mt-2' : ''}>
@@ -217,7 +246,7 @@ export function MarkdownOutput({
         i += 1;
       }
       blocks.push(
-        <ul key={`ul-${i}`} className="my-2.5 space-y-1.5 ps-5 list-disc text-slate-700">
+        <ul key={`ul-${i}`} className="my-2.5 space-y-1.5 ps-5 list-disc marker:text-sky-400 text-slate-200">
           {listItems.map((item, idx) => (
             <li key={idx} className="leading-relaxed">
               {renderInlineFormatting(item)}
@@ -241,7 +270,7 @@ export function MarkdownOutput({
         <ol
           key={`ol-${i}`}
           start={Number.isFinite(startNum) && startNum > 0 ? startNum : 1}
-          className="my-2.5 space-y-2 ps-6 list-decimal text-slate-700"
+          className="my-2.5 space-y-2 ps-6 list-decimal marker:text-sky-400 text-slate-200"
         >
           {listItems.map((item, idx) => (
             <li key={idx} className="leading-relaxed">
@@ -256,7 +285,7 @@ export function MarkdownOutput({
     // Headings
     if (line.startsWith('#### ')) {
       blocks.push(
-        <h5 key={`h5-${i}`} className="mt-4 mb-1.5 text-[14.5px] font-semibold text-slate-900">
+        <h5 key={`h5-${i}`} className="mt-4 mb-1.5 text-[14.5px] font-semibold text-sky-200">
           {renderInlineFormatting(line.slice(5))}
         </h5>
       );
@@ -266,7 +295,7 @@ export function MarkdownOutput({
 
     if (line.startsWith('### ')) {
       blocks.push(
-        <h4 key={`h4-${i}`} className="mt-4.5 mb-1.5 text-[15.5px] font-semibold text-slate-900">
+        <h4 key={`h4-${i}`} className="mt-4.5 mb-1.5 text-[15.5px] font-semibold text-sky-100">
           {renderInlineFormatting(line.slice(4))}
         </h4>
       );
@@ -276,7 +305,7 @@ export function MarkdownOutput({
 
     if (line.startsWith('## ')) {
       blocks.push(
-        <h3 key={`h3-${i}`} className="mt-5 mb-2 text-[17px] font-semibold text-slate-900">
+        <h3 key={`h3-${i}`} className="mt-5 mb-2 text-[17px] font-semibold text-white">
           {renderInlineFormatting(line.slice(3))}
         </h3>
       );
@@ -286,7 +315,7 @@ export function MarkdownOutput({
 
     if (line.startsWith('# ')) {
       blocks.push(
-        <h2 key={`h2-${i}`} className="mt-5 mb-2.5 text-[19px] font-semibold text-slate-900">
+        <h2 key={`h2-${i}`} className="mt-5 mb-2.5 text-[19px] font-semibold text-white">
           {renderInlineFormatting(line.slice(2))}
         </h2>
       );
@@ -302,7 +331,7 @@ export function MarkdownOutput({
 
     // Paragraph
     blocks.push(
-      <p key={`p-${i}`} className="my-3 text-[16px] sm:text-[16.5px] leading-[1.82] text-slate-800">
+      <p key={`p-${i}`} className="my-3 text-[15.5px] sm:text-[16px] leading-[1.82] text-slate-200">
         {renderInlineFormatting(line)}
       </p>
     );

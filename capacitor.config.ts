@@ -23,8 +23,10 @@ const config = {
   },
   plugins: {
     SplashScreen: {
-      launchShowDuration: 1500,
-      backgroundColor: '#18181b',
+      launchShowDuration: 1200,
+      launchAutoHide: true,
+      backgroundColor: '#030712',
+      androidScaleType: 'CENTER_CROP',
       showSpinner: false,
     },
   },

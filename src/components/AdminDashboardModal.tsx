@@ -417,27 +417,27 @@ export function AdminDashboardModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/50 backdrop-blur-[3px] p-3 sm:p-5"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#020614]/80 backdrop-blur-md p-3 sm:p-5"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="super-admin-title"
     >
       <div
-        className="w-full max-w-4xl bg-white rounded-3xl border border-zinc-200/90 shadow-[0_24px_75px_rgba(0,0,0,0.22)] overflow-hidden flex flex-col max-h-[90dvh]"
+        className="w-full max-w-4xl bg-[#071022] rounded-3xl border border-sky-400/25 shadow-[0_24px_85px_rgba(2,8,24,0.88)] overflow-hidden flex flex-col max-h-[90dvh] text-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 sm:px-6 py-4 bg-zinc-900 text-white flex items-center justify-between gap-4">
+        <div className="px-5 sm:px-6 py-4 bg-[#050b19] border-b border-sky-500/20 text-white flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-xl bg-[#10a37f]/20 border border-[#10a37f]/40 text-[#10a37f] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-sky-500/20 border border-cyan-400/40 text-cyan-400 flex items-center justify-center shrink-0">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div className="min-w-0">
               <h2 id="super-admin-title" className="text-base font-semibold leading-tight truncate">
-                TALASH Ai — Owner &amp; Super Admin Control Center
+                TALASH <span className="text-cyan-400 italic">Ai</span> — Owner &amp; Super Admin Control Center
               </h2>
-              <p className="text-[11px] text-zinc-400 truncate">
+              <p className="text-[11px] text-slate-400 truncate">
                 Immutable Owner: {currentUser.email}
               </p>
             </div>
@@ -448,7 +448,7 @@ export function AdminDashboardModal({
               type="button"
               onClick={() => void loadAdminData()}
               aria-label="Refresh admin data"
-              className="w-8 h-8 inline-flex items-center justify-center text-zinc-300 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded-xl transition-colors cursor-pointer"
+              className="w-8 h-8 inline-flex items-center justify-center text-slate-300 hover:text-white bg-slate-900 hover:bg-sky-500/20 border border-sky-400/20 rounded-xl transition-colors cursor-pointer"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             </button>
@@ -456,7 +456,7 @@ export function AdminDashboardModal({
               type="button"
               onClick={onClose}
               aria-label="Close admin dashboard"
-              className="w-8 h-8 inline-flex items-center justify-center text-zinc-300 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded-xl transition-colors cursor-pointer"
+              className="w-8 h-8 inline-flex items-center justify-center text-slate-300 hover:text-white bg-slate-900 hover:bg-sky-500/20 border border-sky-400/20 rounded-xl transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -464,7 +464,7 @@ export function AdminDashboardModal({
         </div>
 
         {/* Navigation Strip */}
-        <nav className="px-4 py-2.5 bg-[#f7f7f8] border-b border-zinc-200/85 flex items-center gap-1.5 overflow-x-auto shrink-0">
+        <nav className="px-4 py-2.5 bg-[#050b19] border-b border-sky-500/20 flex items-center gap-1.5 overflow-x-auto shrink-0">
           {navTabs.map((item) => {
             const Icon = item.icon;
             const active = tab === item.id;
@@ -475,11 +475,11 @@ export function AdminDashboardModal({
                 onClick={() => setTab(item.id)}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap shrink-0 cursor-pointer border transition-colors ${
                   active
-                    ? 'bg-zinc-900 text-white border-zinc-900'
-                    : 'bg-white text-zinc-600 border-zinc-200 hover:text-zinc-900'
+                    ? 'talash-neon-btn border-cyan-400/50'
+                    : 'bg-[#0a152e]/80 text-slate-300 border-sky-400/20 hover:text-white hover:border-cyan-400/40'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${active ? 'text-[#10a37f]' : 'text-zinc-500'}`} />
+                <Icon className={`w-3.5 h-3.5 ${active ? 'text-white' : 'text-cyan-400'}`} />
                 <span>{item.label}</span>
               </button>
             );
@@ -487,24 +487,24 @@ export function AdminDashboardModal({
         </nav>
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 bg-white">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 bg-[#071022]">
           {error && (
-            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+            <div className="p-3 rounded-xl bg-red-950/60 border border-red-400/35 text-xs text-red-200 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
           {notice && (
-            <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center gap-2">
-              <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-400/35 text-xs text-emerald-200 flex items-center gap-2">
+              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>{notice}</span>
             </div>
           )}
 
           {loading && !overview ? (
-            <div className="py-16 flex flex-col items-center justify-center gap-3 text-zinc-500">
-              <Loader2 className="w-6 h-6 animate-spin text-[#10a37f]" />
+            <div className="py-16 flex flex-col items-center justify-center gap-3 text-slate-400">
+              <Loader2 className="w-6 h-6 animate-spin text-cyan-400" />
               <span className="text-xs">Loading Super Admin controls...</span>
             </div>
           ) : (
@@ -512,37 +512,37 @@ export function AdminDashboardModal({
               {tab === 'overview' && overview && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div className="p-4 rounded-2xl border border-zinc-200 bg-[#fafafa]">
-                      <p className="text-[11px] font-medium text-zinc-500">Registered Users</p>
-                      <p className="text-2xl font-bold text-zinc-900 mt-1 tabular-nums">
+                    <div className="p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85">
+                      <p className="text-[11px] font-medium text-slate-400">Registered Users</p>
+                      <p className="text-2xl font-bold text-white mt-1 tabular-nums">
                         {overview.stats.totalUsers}
                       </p>
                     </div>
-                    <div className="p-4 rounded-2xl border border-zinc-200 bg-[#fafafa]">
-                      <p className="text-[11px] font-medium text-zinc-500">Active Accounts</p>
-                      <p className="text-2xl font-bold text-emerald-700 mt-1 tabular-nums">
+                    <div className="p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85">
+                      <p className="text-[11px] font-medium text-slate-400">Active Accounts</p>
+                      <p className="text-2xl font-bold text-cyan-400 mt-1 tabular-nums">
                         {overview.stats.activeUsers}
                       </p>
                     </div>
-                    <div className="p-4 rounded-2xl border border-zinc-200 bg-[#fafafa]">
-                      <p className="text-[11px] font-medium text-zinc-500">Learning Categories</p>
-                      <p className="text-2xl font-bold text-zinc-900 mt-1 tabular-nums">
+                    <div className="p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85">
+                      <p className="text-[11px] font-medium text-slate-400">Learning Categories</p>
+                      <p className="text-2xl font-bold text-white mt-1 tabular-nums">
                         {overview.stats.learningCategories}
                       </p>
                     </div>
-                    <div className="p-4 rounded-2xl border border-zinc-200 bg-[#fafafa]">
-                      <p className="text-[11px] font-medium text-zinc-500">Islamic Topics</p>
-                      <p className="text-2xl font-bold text-zinc-900 mt-1 tabular-nums">
+                    <div className="p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85">
+                      <p className="text-[11px] font-medium text-slate-400">Islamic Topics</p>
+                      <p className="text-2xl font-bold text-white mt-1 tabular-nums">
                         {overview.stats.learningTopics}
                       </p>
                     </div>
                   </div>
 
                   {/* Environment Secrets & OAuth Callbacks */}
-                  <section className="rounded-2xl border border-zinc-200 p-4 sm:p-5 space-y-4 bg-[#fafafa]">
+                  <section className="rounded-2xl border border-sky-400/25 p-4 sm:p-5 space-y-4 bg-[#0a152e]/85">
                     <div className="flex items-center gap-2">
-                      <KeyRound className="w-4 h-4 text-[#10a37f]" />
-                      <h3 className="text-sm font-semibold text-zinc-900">
+                      <KeyRound className="w-4 h-4 text-cyan-400" />
+                      <h3 className="text-sm font-semibold text-white">
                         Server Integrations, Email Delivery &amp; Future OAuth
                       </h3>
                     </div>
@@ -591,12 +591,12 @@ export function AdminDashboardModal({
                       ].map((row) => (
                         <div
                           key={row.label}
-                          className="flex items-center justify-between px-3.5 py-2.5 bg-white rounded-xl border border-zinc-200/80"
+                          className="flex items-center justify-between px-3.5 py-2.5 bg-[#050b19] rounded-xl border border-sky-500/20"
                         >
-                          <span className="font-medium text-zinc-800">{row.label}</span>
+                          <span className="font-medium text-slate-200">{row.label}</span>
                           <span
                             className={`font-mono text-[11px] font-semibold ${
-                              row.ok ? 'text-emerald-700' : 'text-amber-700'
+                              row.ok ? 'text-emerald-300' : 'text-amber-300'
                             }`}
                           >
                             {row.status}
@@ -606,9 +606,9 @@ export function AdminDashboardModal({
                     </div>
 
                     {/* OAuth Readiness & Credential Test */}
-                    <div className="space-y-2 pt-2 border-t border-zinc-200/75 text-xs">
+                    <div className="space-y-2 pt-2 border-t border-sky-500/20 text-xs">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="font-semibold text-zinc-800">
+                        <p className="font-semibold text-slate-200">
                           Future OAuth Redirect URIs (Ready for Google Cloud &amp; Meta Console):
                         </p>
                         <div className="flex items-center gap-2">
@@ -619,7 +619,7 @@ export function AdminDashboardModal({
                               testingOAuth === 'google'
                             }
                             onClick={() => void handleTestOAuth('google')}
-                            className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-white border border-zinc-200 hover:border-zinc-400 disabled:opacity-50 cursor-pointer"
+                            className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-[#050b19] text-slate-200 border border-sky-400/25 hover:border-cyan-400/50 disabled:opacity-45 cursor-pointer"
                           >
                             {testingOAuth === 'google' ? 'Testing...' : 'Test Google OAuth'}
                           </button>
@@ -630,7 +630,7 @@ export function AdminDashboardModal({
                               testingOAuth === 'facebook'
                             }
                             onClick={() => void handleTestOAuth('facebook')}
-                            className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-white border border-zinc-200 hover:border-zinc-400 disabled:opacity-50 cursor-pointer"
+                            className="px-2.5 py-1 text-[11px] font-semibold rounded-lg bg-[#050b19] text-slate-200 border border-sky-400/25 hover:border-cyan-400/50 disabled:opacity-45 cursor-pointer"
                           >
                             {testingOAuth === 'facebook' ? 'Testing...' : 'Test Facebook OAuth'}
                           </button>
@@ -642,23 +642,23 @@ export function AdminDashboardModal({
                       ].map((item) => (
                         <div
                           key={item.key}
-                          className="flex items-center justify-between gap-2 bg-white border border-zinc-200 rounded-xl px-3 py-2"
+                          className="flex items-center justify-between gap-2 bg-[#050b19] border border-sky-500/20 rounded-xl px-3 py-2"
                         >
                           <div className="min-w-0">
-                            <span className="text-[11px] font-semibold text-zinc-500 block">
+                            <span className="text-[11px] font-semibold text-slate-400 block">
                               {item.label}
                             </span>
-                            <code className="font-mono text-[11px] text-zinc-800 break-all">
+                            <code className="font-mono text-[11px] text-cyan-200 break-all">
                               {item.uri}
                             </code>
                           </div>
                           <button
                             type="button"
                             onClick={() => void handleCopy(item.key, item.uri)}
-                            className="p-2 text-zinc-600 hover:text-zinc-900 bg-zinc-100 rounded-lg shrink-0 cursor-pointer"
+                            className="p-2 text-slate-300 hover:text-white bg-slate-900 border border-sky-500/20 rounded-lg shrink-0 cursor-pointer"
                           >
                             {copiedUri === item.key ? (
-                              <Check className="w-3.5 h-3.5 text-emerald-600" />
+                              <Check className="w-3.5 h-3.5 text-emerald-400" />
                             ) : (
                               <Copy className="w-3.5 h-3.5" />
                             )}
@@ -674,17 +674,17 @@ export function AdminDashboardModal({
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-semibold text-zinc-900">
+                      <h3 className="text-sm font-semibold text-white">
                         Registered Accounts ({users.length})
                       </h3>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-slate-400">
                         Manage roles, email verification, recovery links, and status. {overview?.ownerEmail || currentUser.email} is protected by database immutability triggers.
                       </p>
                     </div>
                   </div>
 
                   {issuedRecovery && (
-                    <div className="p-4 rounded-2xl border border-emerald-200 bg-emerald-50 space-y-2 text-xs text-emerald-950">
+                    <div className="p-4 rounded-2xl border border-emerald-400/35 bg-emerald-950/45 space-y-2 text-xs text-emerald-100">
                       <div className="flex items-center justify-between gap-2">
                         <span className="font-semibold">
                           One-Time Password Recovery Link for {issuedRecovery.email}
@@ -692,20 +692,20 @@ export function AdminDashboardModal({
                         <button
                           type="button"
                           onClick={() => setIssuedRecovery(null)}
-                          className="text-emerald-800 hover:text-emerald-950 cursor-pointer"
+                          className="text-emerald-300 hover:text-white cursor-pointer"
                         >
                           <X className="w-4 h-4" />
                         </button>
                       </div>
                       <p className="text-[11px]">
-                        Recovery Code: <code className="font-mono font-bold">{issuedRecovery.code}</code> (expires in 30 minutes)
+                        Recovery Code: <code className="font-mono font-bold text-cyan-300">{issuedRecovery.code}</code> (expires in 30 minutes)
                       </p>
-                      <div className="flex items-center justify-between gap-2 bg-white border border-emerald-200 rounded-xl px-3 py-2">
-                        <code className="font-mono text-[11px] truncate">{issuedRecovery.resetUrl}</code>
+                      <div className="flex items-center justify-between gap-2 bg-[#050b19] border border-emerald-400/30 rounded-xl px-3 py-2">
+                        <code className="font-mono text-[11px] truncate text-slate-200">{issuedRecovery.resetUrl}</code>
                         <button
                           type="button"
                           onClick={() => void handleCopy('recovery', issuedRecovery.resetUrl)}
-                          className="px-2.5 py-1 bg-emerald-700 text-white rounded-lg text-[11px] font-semibold shrink-0 cursor-pointer"
+                          className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[11px] font-semibold shrink-0 cursor-pointer"
                         >
                           {copiedUri === 'recovery' ? 'Copied' : 'Copy Link'}
                         </button>
@@ -713,24 +713,24 @@ export function AdminDashboardModal({
                     </div>
                   )}
 
-                  <div className="divide-y divide-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden">
+                  <div className="divide-y divide-sky-500/15 border border-sky-400/25 rounded-2xl overflow-hidden bg-[#0a152e]/85">
                     {users.map((u) => (
                       <div
                         key={u.id}
-                        className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white hover:bg-zinc-50/70"
+                        className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-sky-500/5"
                       >
                         <div className="min-w-0 space-y-1">
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-sm font-semibold text-zinc-900 truncate">
+                            <span className="text-sm font-semibold text-white truncate">
                               {u.name}
                             </span>
                             <span
                               className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md border ${
                                 u.isImmutableOwner
-                                  ? 'bg-zinc-900 text-white border-zinc-900'
+                                  ? 'bg-sky-500/25 text-cyan-200 border-cyan-400/45'
                                   : u.role === 'admin'
-                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                                  : 'bg-zinc-100 text-zinc-700 border-zinc-200'
+                                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-400/35'
+                                  : 'bg-slate-800 text-slate-300 border-slate-600'
                               }`}
                             >
                               {u.isImmutableOwner ? 'Immutable Owner' : u.role}
@@ -738,27 +738,27 @@ export function AdminDashboardModal({
                             <span
                               className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md border ${
                                 u.emailVerified
-                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                  : 'bg-amber-50 text-amber-800 border-amber-200'
+                                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-400/35'
+                                  : 'bg-amber-500/15 text-amber-300 border-amber-400/35'
                               }`}
                             >
                               {u.emailVerified ? 'Email Verified' : 'Unverified'}
                             </span>
                             {u.status === 'suspended' && (
-                              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md bg-red-50 text-red-700 border border-red-200">
+                              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md bg-red-500/20 text-red-200 border border-red-400/35">
                                 Suspended
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-zinc-600 truncate">{u.email}</p>
-                          <p className="text-[11px] text-zinc-400">
+                          <p className="text-xs text-slate-300 truncate">{u.email}</p>
+                          <p className="text-[11px] text-slate-500">
                             Providers: {u.providers.join(', ') || 'email'} &middot; Last login:{' '}
                             {new Date(u.lastLoginAt).toLocaleString()}
                           </p>
                         </div>
 
                         {u.isImmutableOwner ? (
-                          <div className="inline-flex items-center gap-1.5 text-xs font-medium text-[#10a37f] shrink-0">
+                          <div className="inline-flex items-center gap-1.5 text-xs font-medium text-cyan-400 shrink-0">
                             <ShieldCheck className="w-4 h-4" />
                             <span>Protected Super Admin</span>
                           </div>
@@ -770,7 +770,7 @@ export function AdminDashboardModal({
                                 onClick={() =>
                                   void handleUpdateUser(u.id, { emailVerified: true })
                                 }
-                                className="px-2.5 py-1.5 text-xs font-medium bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg cursor-pointer"
+                                className="px-2.5 py-1.5 text-xs font-medium bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-400/35 rounded-lg cursor-pointer"
                               >
                                 Verify Email
                               </button>
@@ -778,7 +778,7 @@ export function AdminDashboardModal({
                             <button
                               type="button"
                               onClick={() => void handleIssueRecoveryLink(u.id)}
-                              className="px-2.5 py-1.5 text-xs font-medium bg-zinc-100 hover:bg-zinc-200 text-zinc-800 rounded-lg cursor-pointer"
+                              className="px-2.5 py-1.5 text-xs font-medium bg-slate-900 hover:bg-sky-500/15 text-slate-200 border border-sky-400/20 rounded-lg cursor-pointer"
                             >
                               Reset Link
                             </button>
@@ -789,7 +789,7 @@ export function AdminDashboardModal({
                                   role: u.role === 'admin' ? 'user' : 'admin',
                                 })
                               }
-                              className="px-3 py-1.5 text-xs font-medium bg-zinc-100 hover:bg-zinc-200 text-zinc-800 rounded-lg cursor-pointer"
+                              className="px-3 py-1.5 text-xs font-medium bg-slate-900 hover:bg-sky-500/15 text-slate-200 border border-sky-400/20 rounded-lg cursor-pointer"
                             >
                               {u.role === 'admin' ? 'Make User' : 'Make Admin'}
                             </button>
@@ -800,16 +800,16 @@ export function AdminDashboardModal({
                                   status: u.status === 'active' ? 'suspended' : 'active',
                                 })
                               }
-                              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-zinc-100 hover:bg-zinc-200 text-zinc-800 rounded-lg cursor-pointer"
+                              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-slate-900 hover:bg-sky-500/15 text-slate-200 border border-sky-400/20 rounded-lg cursor-pointer"
                             >
                               {u.status === 'active' ? (
                                 <>
-                                  <UserX className="w-3.5 h-3.5 text-amber-600" />
+                                  <UserX className="w-3.5 h-3.5 text-amber-400" />
                                   <span>Suspend</span>
                                 </>
                               ) : (
                                 <>
-                                  <UserCheck className="w-3.5 h-3.5 text-emerald-600" />
+                                  <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
                                   <span>Activate</span>
                                 </>
                               )}
@@ -818,7 +818,7 @@ export function AdminDashboardModal({
                               type="button"
                               onClick={() => void handleDeleteUser(u.id)}
                               aria-label="Delete user"
-                              className="p-1.5 text-zinc-400 hover:text-red-600 hover:bg-red-50 rounded-lg cursor-pointer"
+                              className="p-1.5 text-slate-400 hover:text-red-300 hover:bg-red-500/15 rounded-lg cursor-pointer"
                             >
                               <Trash2 className="w-4 h-4" />
                             </button>
@@ -834,7 +834,7 @@ export function AdminDashboardModal({
                 <form onSubmit={handleSaveSettings} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-zinc-900">
+                      <label className="text-xs font-semibold text-white">
                         Default AI Routing Model
                       </label>
                       <select
@@ -845,7 +845,7 @@ export function AdminDashboardModal({
                             defaultModel: e.target.value as ChatModelId,
                           }))
                         }
-                        className="w-full px-3 py-2.5 text-xs bg-[#fafafa] border border-zinc-200 rounded-xl text-zinc-900"
+                        className="w-full px-3 py-2.5 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white focus:outline-none focus:border-cyan-400"
                       >
                         <option value="auto">Smart Auto</option>
                         <option value="gemini-4-hydrogen">Talash Pro (Gemini)</option>
@@ -855,7 +855,7 @@ export function AdminDashboardModal({
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-zinc-900">
+                      <label className="text-xs font-semibold text-white">
                         Default Google Search Grounding
                       </label>
                       <select
@@ -866,7 +866,7 @@ export function AdminDashboardModal({
                             googleSearchMode: e.target.value as GoogleSearchMode,
                           }))
                         }
-                        className="w-full px-3 py-2.5 text-xs bg-[#fafafa] border border-zinc-200 rounded-xl text-zinc-900"
+                        className="w-full px-3 py-2.5 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white focus:outline-none focus:border-cyan-400"
                       >
                         <option value="auto">Smart Auto</option>
                         <option value="always">Always Search</option>
@@ -875,12 +875,12 @@ export function AdminDashboardModal({
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between gap-4 p-4 rounded-2xl border border-zinc-200 bg-[#fafafa]">
+                  <div className="flex items-center justify-between gap-4 p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85">
                     <div>
-                      <p className="text-xs font-semibold text-zinc-900">
+                      <p className="text-xs font-semibold text-white">
                         Allow New User Registrations
                       </p>
-                      <p className="text-[11px] text-zinc-500 mt-0.5">
+                      <p className="text-[11px] text-slate-400 mt-0.5">
                         When paused, existing users and the official owner can still sign in, while new account registrations are blocked.
                       </p>
                     </div>
@@ -893,18 +893,18 @@ export function AdminDashboardModal({
                           allowNewRegistrations: e.target.checked,
                         }))
                       }
-                      className="w-4 h-4 accent-[#10a37f] cursor-pointer"
+                      className="w-4 h-4 accent-cyan-400 cursor-pointer"
                     />
                   </div>
 
                   {/* Future OAuth Enablement Toggles */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 bg-[#fafafa]">
+                    <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85">
                       <div>
-                        <p className="text-xs font-semibold text-zinc-900">
+                        <p className="text-xs font-semibold text-white">
                           Enable Google OAuth Login
                         </p>
-                        <p className="text-[11px] text-zinc-500 mt-0.5">
+                        <p className="text-[11px] text-slate-400 mt-0.5">
                           {overview?.secretsStatus.googleOAuthConfigured
                             ? 'Credentials found — test before enabling.'
                             : 'Disabled until GOOGLE_CLIENT_ID & SECRET are configured.'}
@@ -920,16 +920,16 @@ export function AdminDashboardModal({
                             googleOAuthEnabled: e.target.checked,
                           }))
                         }
-                        className="w-4 h-4 accent-[#10a37f] cursor-pointer disabled:opacity-40"
+                        className="w-4 h-4 accent-cyan-400 cursor-pointer disabled:opacity-40"
                       />
                     </div>
 
-                    <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-zinc-200 bg-[#fafafa]">
+                    <div className="flex items-center justify-between gap-3 p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85">
                       <div>
-                        <p className="text-xs font-semibold text-zinc-900">
+                        <p className="text-xs font-semibold text-white">
                           Enable Facebook Login
                         </p>
-                        <p className="text-[11px] text-zinc-500 mt-0.5">
+                        <p className="text-[11px] text-slate-400 mt-0.5">
                           {overview?.secretsStatus.facebookOAuthConfigured
                             ? 'Credentials found — test before enabling.'
                             : 'Disabled until FACEBOOK_APP_ID & SECRET are configured.'}
@@ -945,15 +945,15 @@ export function AdminDashboardModal({
                             facebookOAuthEnabled: e.target.checked,
                           }))
                         }
-                        className="w-4 h-4 accent-[#10a37f] cursor-pointer disabled:opacity-40"
+                        className="w-4 h-4 accent-cyan-400 cursor-pointer disabled:opacity-40"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-zinc-900 flex items-center gap-1.5">
-                        <Globe className="w-3.5 h-3.5 text-[#10a37f]" />
+                      <label className="text-xs font-semibold text-white flex items-center gap-1.5">
+                        <Globe className="w-3.5 h-3.5 text-cyan-400" />
                         <span>Official Custom Domain (for Sitemap &amp; SEO)</span>
                       </label>
                       <input
@@ -963,12 +963,12 @@ export function AdminDashboardModal({
                           setSettingsForm((prev) => ({ ...prev, siteDomain: e.target.value }))
                         }
                         placeholder="e.g. talashai.com"
-                        className="w-full px-3 py-2 text-xs bg-[#fafafa] border border-zinc-200 rounded-xl text-zinc-900"
+                        className="w-full px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-zinc-900">
+                      <label className="text-xs font-semibold text-white">
                         Google Search Console Verification Token
                       </label>
                       <input
@@ -981,13 +981,13 @@ export function AdminDashboardModal({
                           }))
                         }
                         placeholder="Paste GSC verification meta content value..."
-                        className="w-full px-3 py-2 text-xs bg-[#fafafa] border border-zinc-200 rounded-xl text-zinc-900"
+                        className="w-full px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-zinc-900">
+                    <label className="text-xs font-semibold text-white">
                       Global AI System Persona Override (Optional)
                     </label>
                     <textarea
@@ -1000,17 +1000,17 @@ export function AdminDashboardModal({
                         }))
                       }
                       placeholder="Optional owner-level guidance for TALASH Ai..."
-                      className="w-full px-3 py-2.5 text-xs bg-[#fafafa] border border-zinc-200 rounded-xl text-zinc-900 resize-y"
+                      className="w-full px-3 py-2.5 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400 resize-y"
                     />
                   </div>
 
-                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-zinc-200">
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-sky-500/20">
                     <div className="flex items-center gap-3 text-xs">
                       <a
                         href="/robots.txt"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#10a37f] font-semibold hover:underline"
+                        className="text-cyan-400 font-semibold hover:underline"
                       >
                         /robots.txt
                       </a>
@@ -1018,7 +1018,7 @@ export function AdminDashboardModal({
                         href="/sitemap.xml"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#10a37f] font-semibold hover:underline"
+                        className="text-cyan-400 font-semibold hover:underline"
                       >
                         /sitemap.xml
                       </a>
@@ -1027,7 +1027,7 @@ export function AdminDashboardModal({
                     <button
                       type="submit"
                       disabled={savingSettings}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 rounded-xl cursor-pointer disabled:opacity-60"
+                      className="talash-neon-btn inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold rounded-xl cursor-pointer disabled:opacity-60"
                     >
                       {savingSettings && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                       <span>Save Global Settings</span>
@@ -1040,18 +1040,18 @@ export function AdminDashboardModal({
                 <div className="space-y-5">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                      <h3 className="text-sm font-semibold text-zinc-900">
+                      <h3 className="text-sm font-semibold text-white">
                         SQLite Pashto Islamic Learning CMS
                       </h3>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-slate-400">
                         Manage existing categories and add or remove topics in{' '}
-                        <code className="font-mono">data/talash_learning.db</code>.
+                        <code className="font-mono text-cyan-300">data/talash_learning.db</code>.
                       </p>
                     </div>
                     <select
                       value={selectedCatId}
                       onChange={(e) => setSelectedCatId(e.target.value)}
-                      className="px-3 py-2 text-xs font-semibold bg-[#fafafa] border border-zinc-200 rounded-xl text-zinc-900"
+                      className="px-3 py-2 text-xs font-semibold bg-[#050b19] border border-sky-400/25 rounded-xl text-white focus:outline-none focus:border-cyan-400"
                     >
                       {categories.map((c) => (
                         <option key={c.id} value={c.id}>
@@ -1064,9 +1064,9 @@ export function AdminDashboardModal({
                   {/* Add New Topic Form */}
                   <form
                     onSubmit={handleAddTopic}
-                    className="p-4 rounded-2xl border border-zinc-200 bg-[#fafafa] space-y-3"
+                    className="p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 space-y-3"
                   >
-                    <p className="text-xs font-semibold text-zinc-900">Add Topic to Selected Category</p>
+                    <p className="text-xs font-semibold text-white">Add Topic to Selected Category</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <input
                         type="text"
@@ -1075,7 +1075,7 @@ export function AdminDashboardModal({
                         value={newTopicTitle}
                         onChange={(e) => setNewTopicTitle(e.target.value)}
                         placeholder="د موضوع سرلیک (پښتو)..."
-                        className="px-3 py-2 text-xs bg-white border border-zinc-200 rounded-xl"
+                        className="px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500"
                       />
                       <input
                         type="text"
@@ -1083,7 +1083,7 @@ export function AdminDashboardModal({
                         value={newTopicSource}
                         onChange={(e) => setNewTopicSource(e.target.value)}
                         placeholder="مستند ماخذ (لکه: صحیح البخاري)..."
-                        className="px-3 py-2 text-xs bg-white border border-zinc-200 rounded-xl"
+                        className="px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500"
                       />
                     </div>
                     <textarea
@@ -1092,7 +1092,7 @@ export function AdminDashboardModal({
                       value={newTopicArabic}
                       onChange={(e) => setNewTopicArabic(e.target.value)}
                       placeholder="عربي متن (اختیاري)..."
-                      className="w-full px-3 py-2 text-xs bg-white border border-zinc-200 rounded-xl"
+                      className="w-full px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500"
                     />
                     <textarea
                       rows={2}
@@ -1100,35 +1100,35 @@ export function AdminDashboardModal({
                       value={newTopicPashto}
                       onChange={(e) => setNewTopicPashto(e.target.value)}
                       placeholder="پښتو ژباړه او تشریح..."
-                      className="w-full px-3 py-2 text-xs bg-white border border-zinc-200 rounded-xl"
+                      className="w-full px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500"
                     />
                     <button
                       type="submit"
                       disabled={addingTopic}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 rounded-xl cursor-pointer disabled:opacity-60"
+                      className="talash-neon-btn inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl cursor-pointer disabled:opacity-60"
                     >
-                      <Plus className="w-3.5 h-3.5 text-[#10a37f]" />
+                      <Plus className="w-3.5 h-3.5" />
                       <span>{addingTopic ? 'Saving...' : 'Save Topic to Database'}</span>
                     </button>
                   </form>
 
-                  <div className="divide-y divide-zinc-200 border border-zinc-200 rounded-2xl overflow-hidden max-h-72 overflow-y-auto">
+                  <div className="divide-y divide-sky-500/15 border border-sky-400/25 rounded-2xl overflow-hidden max-h-72 overflow-y-auto bg-[#0a152e]/85">
                     {catTopics.map((topic) => (
                       <div
                         key={topic.id}
-                        className="px-4 py-3 flex items-center justify-between gap-3 bg-white"
+                        className="px-4 py-3 flex items-center justify-between gap-3"
                       >
                         <div className="min-w-0">
-                          <p className="text-xs font-semibold text-zinc-900 truncate" dir="rtl">
+                          <p className="text-xs font-semibold text-white truncate" dir="rtl">
                             {topic.numberLabel} &middot; {topic.title}
                           </p>
-                          <p className="text-[11px] text-zinc-500 truncate">{topic.source}</p>
+                          <p className="text-[11px] text-slate-400 truncate">{topic.source}</p>
                         </div>
                         <button
                           type="button"
                           onClick={() => void handleDeleteTopic(topic.id)}
                           aria-label="Delete topic"
-                          className="p-1.5 text-zinc-400 hover:text-red-600 hover:bg-red-50 rounded-lg shrink-0 cursor-pointer"
+                          className="p-1.5 text-slate-400 hover:text-red-300 hover:bg-red-500/15 rounded-lg shrink-0 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -1140,22 +1140,22 @@ export function AdminDashboardModal({
 
               {tab === 'launch' && (
                 <div className="space-y-5">
-                  <section className="p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-[#fafafa] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <section className="p-4 sm:p-5 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="space-y-1">
-                      <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900">
-                        <Database className="w-4 h-4 text-[#10a37f]" />
+                      <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+                        <Database className="w-4 h-4 text-cyan-400" />
                         <span>Full Ownership Database Backup</span>
                       </div>
-                      <p className="text-xs text-zinc-600">
+                      <p className="text-xs text-slate-400">
                         Download all SQLite users, global settings, and 12 Learning categories / topics as portable JSON.
                       </p>
                     </div>
                     <button
                       type="button"
                       onClick={() => void handleDownloadDbBackup()}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 rounded-xl whitespace-nowrap shrink-0 cursor-pointer"
+                      className="talash-neon-btn inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl whitespace-nowrap shrink-0 cursor-pointer"
                     >
-                      <Download className="w-3.5 h-3.5 text-[#10a37f]" />
+                      <Download className="w-3.5 h-3.5" />
                       <span>Export Full Database</span>
                     </button>
                   </section>
@@ -1163,9 +1163,9 @@ export function AdminDashboardModal({
                   {!overview?.secretsStatus.ownerEnvKeyConfigured && (
                     <form
                       onSubmit={handleRotatePasskey}
-                      className="p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-white space-y-3"
+                      className="p-4 sm:p-5 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 space-y-3"
                     >
-                      <h3 className="text-sm font-semibold text-zinc-900">
+                      <h3 className="text-sm font-semibold text-white">
                         Rotate Owner Passkey
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1174,7 +1174,7 @@ export function AdminDashboardModal({
                           value={currentPasskey}
                           onChange={(e) => setCurrentPasskey(e.target.value)}
                           placeholder="Current passkey (if set)..."
-                          className="px-3 py-2 text-xs bg-[#fafafa] border border-zinc-200 rounded-xl"
+                          className="px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500"
                         />
                         <input
                           type="password"
@@ -1183,35 +1183,35 @@ export function AdminDashboardModal({
                           value={newPasskey}
                           onChange={(e) => setNewPasskey(e.target.value)}
                           placeholder="New passkey (8+ characters)..."
-                          className="px-3 py-2 text-xs bg-[#fafafa] border border-zinc-200 rounded-xl"
+                          className="px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500"
                         />
                       </div>
                       <button
                         type="submit"
                         disabled={rotatingKey}
-                        className="px-4 py-2 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 rounded-xl cursor-pointer disabled:opacity-60"
+                        className="talash-neon-btn px-4 py-2 text-xs font-semibold rounded-xl cursor-pointer disabled:opacity-60"
                       >
                         {rotatingKey ? 'Updating...' : 'Update Owner Passkey'}
                       </button>
                     </form>
                   )}
 
-                  <section className="p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-[#fafafa] space-y-2.5 text-xs text-zinc-700 leading-relaxed">
-                    <div className="inline-flex items-center gap-1.5 font-semibold text-zinc-900 text-sm">
-                      <ShieldAlert className="w-4 h-4 text-[#10a37f]" />
+                  <section className="p-4 sm:p-5 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 space-y-2.5 text-xs text-slate-300 leading-relaxed">
+                    <div className="inline-flex items-center gap-1.5 font-semibold text-white text-sm">
+                      <ShieldAlert className="w-4 h-4 text-cyan-400" />
                       <span>Android APK, iOS App &amp; Google Search Console Checklist</span>
                     </div>
                     <p>
-                      1. <strong>Installable Web App (PWA):</strong> Active right now via VitePWA service worker and manifest — Android Chrome, iOS Safari, and Desktop users can install TALASH Ai directly.
+                      1. <strong className="text-white">Installable Web App (PWA):</strong> Active right now via VitePWA service worker and manifest — Android Chrome, iOS Safari, and Desktop users can install TALASH Ai directly.
                     </p>
                     <p>
-                      2. <strong>Signed Android APK / Play Store AAB (com.shamstalash.talashai):</strong> Because Java JDK and Android SDK are not installed inside this cloud container, a complete Capacitor Android Gradle project (<code className="font-mono">android/</code> + <code className="font-mono">capacitor.config.ts</code>) and GitHub Actions APK builder (<code className="font-mono">.github/workflows/build-android-apk.yml</code>) are included in the repository so you can generate your signed APK/AAB under your own keystore.
+                      2. <strong className="text-white">Signed Android APK / Play Store AAB (com.shamstalash.talashai):</strong> Because Java JDK and Android SDK are not installed inside this cloud container, a complete Capacitor Android Gradle project (<code className="font-mono text-cyan-300">android/</code> + <code className="font-mono text-cyan-300">capacitor.config.ts</code>) and GitHub Actions APK builder (<code className="font-mono text-cyan-300">.github/workflows/build-android-apk.yml</code>) are included in the repository so you can generate your signed APK/AAB under your own keystore.
                     </p>
                     <p>
-                      3. <strong>iOS App Store Preparation:</strong> Capacitor iOS config (<code className="font-mono">com.shamstalash.talashai</code>) and Xcode archive instructions (<code className="font-mono">ios/README_IOS_RELEASE.md</code>) are ready for macOS + Xcode signing.
+                      3. <strong className="text-white">iOS App Store Preparation:</strong> Capacitor iOS config (<code className="font-mono text-cyan-300">com.shamstalash.talashai</code>) and Xcode archive instructions (<code className="font-mono text-cyan-300">ios/README_IOS_RELEASE.md</code>) are ready for macOS + Xcode signing.
                     </p>
                     <p>
-                      4. <strong>Google Search Visibility:</strong> Dynamic <code className="font-mono">/robots.txt</code>, <code className="font-mono">/sitemap.xml</code>, OpenGraph, and JSON-LD are live. To appear in Google Search on your own domain, deploy under your domain, paste your Google Search Console token in the <em>Global AI &amp; SEO</em> tab, and submit <code className="font-mono">sitemap.xml</code> in Google Search Console.
+                      4. <strong className="text-white">Google Search Visibility:</strong> Dynamic <code className="font-mono text-cyan-300">/robots.txt</code>, <code className="font-mono text-cyan-300">/sitemap.xml</code>, OpenGraph, and JSON-LD are live. To appear in Google Search on your own domain, deploy under your domain, paste your Google Search Console token in the <em>Global AI &amp; SEO</em> tab, and submit <code className="font-mono text-cyan-300">sitemap.xml</code> in Google Search Console.
                     </p>
                   </section>
                 </div>

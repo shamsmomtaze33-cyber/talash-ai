@@ -14,7 +14,18 @@ export type ResponseFormat = 'text' | 'json';
 
 export type DeliveryMode = 'stream' | 'single';
 
-export type ActiveView = 'chat' | 'learning' | 'workbench' | 'batch';
+export type ActiveView =
+  | 'home'
+  | 'chat'
+  | 'history'
+  | 'settings'
+  | 'premium'
+  | 'learning'
+  | 'image'
+  | 'workbench'
+  | 'batch';
+
+export type AppLanguage = 'en' | 'ps' | 'ar';
 
 export type GoogleSearchMode = 'auto' | 'always' | 'off';
 
@@ -287,6 +298,8 @@ export interface ChatMessage {
   text: string;
   imageUrl?: string;
   imageName?: string;
+  attachmentName?: string;
+  generatedImageUrl?: string;
   timestamp: string;
   model?: ChatModelId;
   thinkingLevel?: ThinkingDepth;
@@ -296,6 +309,15 @@ export interface ChatMessage {
   sources?: GroundingSource[];
   continuation?: ContinuationInfo;
   meta?: ReplyMeta;
+}
+
+export interface GeneratedImageEntry {
+  id: string;
+  prompt: string;
+  aspectRatio: '1:1' | '16:9' | '9:16' | '4:3' | '3:4';
+  imageDataUrl: string;
+  createdAt: string;
+  durationMs?: number;
 }
 
 export interface ChatThread {

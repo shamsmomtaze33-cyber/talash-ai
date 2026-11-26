@@ -5,10 +5,13 @@ import {
   Code2,
   Compass,
   Cpu,
+  Crown,
   Database,
   Download,
   Globe,
   History,
+  Home,
+  Image as ImageIcon,
   KeyRound,
   Layers,
   LogOut,
@@ -213,10 +216,22 @@ export function ChatSettingsModal({
     icon: typeof MessageSquare;
   }> = [
     {
+      id: 'home',
+      label: 'TALASH Ai Home',
+      subtitle: 'Command dashboard with 8 smart AI quick launch actions',
+      icon: Home,
+    },
+    {
       id: 'chat',
       label: 'TALASH Ai Chat',
       subtitle: 'Fast streaming answers in Pashto, Arabic & English',
       icon: MessageSquare,
+    },
+    {
+      id: 'image',
+      label: 'Image Creation Studio',
+      subtitle: 'Generate futuristic AI images with Gemini Image Engine',
+      icon: ImageIcon,
     },
     {
       id: 'learning',
@@ -236,32 +251,38 @@ export function ChatSettingsModal({
       subtitle: 'Compare prompts and models across CSV datasets',
       icon: Layers,
     },
+    {
+      id: 'premium',
+      label: 'Premium & Plans',
+      subtitle: 'Explore Pro capabilities, routing tiers & owner status',
+      icon: Crown,
+    },
   ];
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/45 backdrop-blur-[3px] p-3 sm:p-5"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#020614]/80 backdrop-blur-md p-3 sm:p-5"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="settings-modal-title"
     >
       <div
-        className="w-full max-w-3xl bg-white rounded-3xl border border-zinc-200/90 shadow-[0_24px_70px_rgba(0,0,0,0.18)] overflow-hidden flex flex-col max-h-[88dvh]"
+        className="w-full max-w-3xl bg-[#071022] rounded-3xl border border-sky-400/25 shadow-[0_24px_80px_rgba(2,8,24,0.85)] overflow-hidden flex flex-col max-h-[88dvh] text-slate-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="px-5 sm:px-6 py-4 bg-white border-b border-zinc-200/80 flex items-center justify-between gap-4">
+        <div className="px-5 sm:px-6 py-4 bg-[#050b19] border-b border-sky-500/20 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <TalashLogoMark className="w-9 h-9 rounded-xl shrink-0" />
+            <TalashLogoMark className="w-9 h-9 rounded-full shrink-0" />
             <div className="min-w-0">
               <h2
                 id="settings-modal-title"
-                className="text-base font-semibold text-zinc-900 leading-tight"
+                className="text-base font-semibold text-white leading-tight"
               >
-                TALASH Ai Settings &amp; Menu
+                TALASH <span className="text-cyan-400 italic">Ai</span> Settings &amp; Menu
               </h2>
-              <p className="text-[11px] text-zinc-500 truncate">
+              <p className="text-[11px] text-slate-400 truncate">
                 Navigation, Chat History, AI Routing, Account &amp; Owner Controls
               </p>
             </div>
@@ -271,7 +292,7 @@ export function ChatSettingsModal({
             type="button"
             onClick={onClose}
             aria-label="Close settings"
-            className="w-8 h-8 inline-flex items-center justify-center text-zinc-500 hover:text-zinc-900 bg-zinc-100/80 hover:bg-zinc-200/80 rounded-xl transition-colors cursor-pointer shrink-0"
+            className="w-9 h-9 inline-flex items-center justify-center text-slate-300 hover:text-white bg-slate-900/90 hover:bg-sky-500/20 border border-sky-500/25 rounded-xl transition-colors cursor-pointer shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
@@ -282,7 +303,7 @@ export function ChatSettingsModal({
           {/* Left Navigation Rail */}
           <nav
             aria-label="Settings sections"
-            className="sm:w-56 shrink-0 bg-[#f7f7f8] border-b sm:border-b-0 sm:border-r border-zinc-200/80 p-3 flex sm:flex-col gap-1.5 overflow-x-auto"
+            className="sm:w-56 shrink-0 bg-[#050b19] border-b sm:border-b-0 sm:border-r border-sky-500/20 p-3 flex sm:flex-col gap-1.5 overflow-x-auto"
           >
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -294,18 +315,18 @@ export function ChatSettingsModal({
                   onClick={() => setSection(item.id)}
                   className={`flex items-center justify-between gap-2.5 px-3 py-2.5 rounded-xl text-xs transition-all whitespace-nowrap shrink-0 cursor-pointer border ${
                     active
-                      ? 'bg-white text-zinc-900 font-semibold border-zinc-200/90 shadow-xs'
-                      : 'border-transparent text-zinc-600 font-medium hover:bg-zinc-200/50 hover:text-zinc-900'
+                      ? 'bg-sky-500/20 text-white font-semibold border-cyan-400/45 shadow-[0_0_18px_rgba(37,99,235,0.22)]'
+                      : 'border-transparent text-slate-400 font-medium hover:bg-slate-900/80 hover:text-white'
                   }`}
                 >
                   <span className="inline-flex items-center gap-2.5">
                     <Icon
-                      className={`w-4 h-4 shrink-0 ${active ? 'text-[#10a37f]' : 'text-zinc-500'}`}
+                      className={`w-4 h-4 shrink-0 ${active ? 'text-cyan-400' : 'text-slate-400'}`}
                     />
                     <span>{item.label}</span>
                   </span>
                   {item.id === 'history' && (
-                    <span className="font-mono text-[11px] text-zinc-500 tabular-nums">
+                    <span className="font-mono text-[11px] text-cyan-300 tabular-nums">
                       {previousSavedCount}/20
                     </span>
                   )}
@@ -315,12 +336,12 @@ export function ChatSettingsModal({
           </nav>
 
           {/* Right Settings Content */}
-          <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 bg-white">
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 bg-[#071022]">
             {section === 'navigation' && (
               <div className="space-y-6">
                 {/* Account Card */}
                 {currentUser && (
-                  <section className="p-4 rounded-2xl border border-zinc-200/90 bg-[#fafafa] space-y-3">
+                  <section className="p-4 rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 space-y-3">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
                         {currentUser.avatarUrl ? (
@@ -328,32 +349,32 @@ export function ChatSettingsModal({
                             src={currentUser.avatarUrl}
                             alt={currentUser.name}
                             referrerPolicy="no-referrer"
-                            className="w-10 h-10 rounded-full object-cover border border-zinc-200 shrink-0"
+                            className="w-10 h-10 rounded-full object-cover border border-cyan-400/40 shrink-0"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-zinc-900 text-white font-semibold text-sm flex items-center justify-center shrink-0">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white font-bold text-sm flex items-center justify-center shrink-0">
                             {currentUser.name.charAt(0).toUpperCase()}
                           </div>
                         )}
                         <div className="min-w-0">
                           <div className="flex flex-wrap items-center gap-1.5">
-                            <p className="text-sm font-semibold text-zinc-900 truncate">
+                            <p className="text-sm font-semibold text-white truncate">
                               {currentUser.name}
                             </p>
-                            <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
+                            <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md bg-sky-500/20 text-cyan-300 border border-cyan-400/35">
                               {currentUser.isImmutableOwner ? 'Owner · Super Admin' : currentUser.role}
                             </span>
                             <span
                               className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md border ${
                                 currentUser.emailVerified
-                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                  : 'bg-amber-50 text-amber-800 border-amber-200'
+                                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-400/35'
+                                  : 'bg-amber-500/15 text-amber-300 border-amber-400/35'
                               }`}
                             >
                               {currentUser.emailVerified ? 'Verified' : 'Pending Verification'}
                             </span>
                           </div>
-                          <p className="text-xs text-zinc-500 truncate">{currentUser.email}</p>
+                          <p className="text-xs text-slate-400 truncate">{currentUser.email}</p>
                         </div>
                       </div>
 
@@ -365,9 +386,9 @@ export function ChatSettingsModal({
                             setPwError(null);
                             setPwSuccess(null);
                           }}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-zinc-700 hover:text-zinc-900 bg-white hover:bg-zinc-100 border border-zinc-200 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/90 hover:bg-sky-500/15 border border-sky-400/25 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
                         >
-                          <KeyRound className="w-3.5 h-3.5" />
+                          <KeyRound className="w-3.5 h-3.5 text-cyan-400" />
                           <span>Password</span>
                         </button>
                         <button
@@ -376,7 +397,7 @@ export function ChatSettingsModal({
                             onClose();
                             onLogout();
                           }}
-                          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-zinc-700 hover:text-red-700 bg-white hover:bg-red-50 border border-zinc-200 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-red-200 hover:text-white bg-red-950/50 hover:bg-red-600/35 border border-red-400/30 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
                         >
                           <LogOut className="w-3.5 h-3.5" />
                           <span>Sign Out</span>
@@ -425,16 +446,16 @@ export function ChatSettingsModal({
                             setPwBusy(false);
                           }
                         }}
-                        className="pt-3 border-t border-zinc-200/80 space-y-2.5"
+                        className="pt-3 border-t border-sky-500/20 space-y-2.5"
                       >
-                        <p className="text-xs font-semibold text-zinc-900">Change Account Password</p>
+                        <p className="text-xs font-semibold text-white">Change Account Password</p>
                         {pwError && (
-                          <p className="text-xs text-red-700 bg-red-50 border border-red-200 rounded-lg px-2.5 py-1.5">
+                          <p className="text-xs text-red-200 bg-red-950/60 border border-red-400/35 rounded-lg px-2.5 py-1.5">
                             {pwError}
                           </p>
                         )}
                         {pwSuccess && (
-                          <p className="text-xs text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1.5">
+                          <p className="text-xs text-emerald-200 bg-emerald-950/60 border border-emerald-400/35 rounded-lg px-2.5 py-1.5">
                             {pwSuccess}
                           </p>
                         )}
@@ -444,7 +465,7 @@ export function ChatSettingsModal({
                             value={currentPw}
                             onChange={(e) => setCurrentPw(e.target.value)}
                             placeholder="Current password"
-                            className="px-3 py-2 text-xs bg-white border border-zinc-200 rounded-xl"
+                            className="px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
                           />
                           <input
                             type="password"
@@ -453,7 +474,7 @@ export function ChatSettingsModal({
                             value={newPw}
                             onChange={(e) => setNewPw(e.target.value)}
                             placeholder="New password (8+ chars)"
-                            className="px-3 py-2 text-xs bg-white border border-zinc-200 rounded-xl"
+                            className="px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
                           />
                           <input
                             type="password"
@@ -462,13 +483,13 @@ export function ChatSettingsModal({
                             value={confirmPw}
                             onChange={(e) => setConfirmPw(e.target.value)}
                             placeholder="Confirm new password"
-                            className="px-3 py-2 text-xs bg-white border border-zinc-200 rounded-xl"
+                            className="px-3 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
                           />
                         </div>
                         <button
                           type="submit"
                           disabled={pwBusy}
-                          className="px-4 py-2 text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl cursor-pointer disabled:opacity-60"
+                          className="talash-neon-btn px-4 py-2 text-xs font-semibold rounded-xl cursor-pointer disabled:opacity-60"
                         >
                           {pwBusy ? 'Updating...' : 'Update Password'}
                         </button>
@@ -479,13 +500,13 @@ export function ChatSettingsModal({
 
                 {/* Owner Super Admin Control Center Button */}
                 {isSuperAdmin && onOpenAdminDashboard && (
-                  <section className="p-4 rounded-2xl border border-zinc-900 bg-zinc-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <section className="p-4 rounded-2xl border border-cyan-400/35 bg-gradient-to-r from-blue-950/75 via-[#0a1836] to-cyan-950/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="space-y-0.5">
-                      <div className="inline-flex items-center gap-1.5 text-sm font-semibold">
-                        <ShieldCheck className="w-4 h-4 text-[#10a37f]" />
+                      <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+                        <ShieldCheck className="w-4 h-4 text-cyan-400" />
                         <span>Owner &amp; Super Admin Control Center</span>
                       </div>
-                      <p className="text-xs text-zinc-300">
+                      <p className="text-xs text-slate-300">
                         Manage users, roles, Learning CMS, SEO domain, OAuth callbacks &amp; database backups.
                       </p>
                     </div>
@@ -495,7 +516,7 @@ export function ChatSettingsModal({
                         onClose();
                         onOpenAdminDashboard();
                       }}
-                      className="px-4 py-2 text-xs font-semibold bg-[#10a37f] hover:bg-[#0e8f6e] text-white rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
+                      className="talash-neon-btn px-4 py-2 text-xs font-semibold rounded-xl whitespace-nowrap shrink-0 cursor-pointer"
                     >
                       Open Admin Panel
                     </button>
@@ -505,9 +526,9 @@ export function ChatSettingsModal({
                 {/* Workspace Navigation */}
                 <section className="space-y-3">
                   <div>
-                    <h3 className="text-sm font-semibold text-zinc-900">TALASH Ai Sections</h3>
-                    <p className="text-xs text-zinc-500 mt-0.5">
-                      Switch between Chat, Islamic Learning, Prompt Workbench, and Batch CSV.
+                    <h3 className="text-sm font-semibold text-white">TALASH Ai Sections</h3>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Switch between Home, Chat, Image Studio, Islamic Learning, Workbench, and Batch CSV.
                     </p>
                   </div>
 
@@ -525,20 +546,22 @@ export function ChatSettingsModal({
                           }}
                           className={`text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${
                             active
-                              ? 'border-zinc-900 bg-zinc-50/90 shadow-2xs'
-                              : 'border-zinc-200 hover:border-zinc-400 bg-white'
+                              ? 'border-cyan-400/60 bg-sky-500/15 shadow-[0_0_20px_rgba(37,99,235,0.2)]'
+                              : 'border-sky-400/20 hover:border-cyan-400/45 bg-[#0a152e]/75'
                           }`}
                         >
                           <div
-                            className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                              active ? 'bg-zinc-900 text-[#10a37f]' : 'bg-zinc-100 text-zinc-600'
+                            className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${
+                              active
+                                ? 'bg-gradient-to-br from-blue-600 to-cyan-500 text-white border-cyan-300/40'
+                                : 'bg-slate-900/90 text-cyan-400 border-sky-500/25'
                             }`}
                           >
                             <Icon className="w-4 h-4" />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-xs font-semibold text-zinc-900">{dest.label}</p>
-                            <p className="text-[11px] text-zinc-500 leading-snug mt-0.5">
+                            <p className="text-xs font-semibold text-white">{dest.label}</p>
+                            <p className="text-[11px] text-slate-400 leading-snug mt-0.5">
                               {dest.subtitle}
                             </p>
                           </div>
@@ -549,10 +572,10 @@ export function ChatSettingsModal({
                 </section>
 
                 {/* Android / Desktop App Install */}
-                <section className="pt-4 border-t border-zinc-200/80 flex flex-wrap items-center justify-between gap-3">
+                <section className="pt-4 border-t border-sky-500/20 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold text-zinc-900">Install TALASH Ai App</p>
-                    <p className="text-[11px] text-zinc-500">
+                    <p className="text-xs font-semibold text-white">Install TALASH Ai App</p>
+                    <p className="text-[11px] text-slate-400">
                       Add TALASH Ai to your Android, iOS, or Desktop home screen for offline-ready access.
                     </p>
                   </div>
@@ -565,8 +588,8 @@ export function ChatSettingsModal({
               <div className="space-y-6">
                 <section className="space-y-3">
                   <div>
-                    <h3 className="text-sm font-semibold text-zinc-900">Response Style</h3>
-                    <p className="text-xs text-zinc-500 mt-0.5">
+                    <h3 className="text-sm font-semibold text-white">Response Style</h3>
+                    <p className="text-xs text-slate-400 mt-0.5">
                       Control answer structure and depth across all conversations.
                     </p>
                   </div>
@@ -581,19 +604,21 @@ export function ChatSettingsModal({
                           onClick={() => onSelectTone(tone.id)}
                           className={`w-full text-left px-4 py-3 rounded-xl border transition-all flex items-center justify-between gap-3 cursor-pointer ${
                             active
-                              ? 'border-zinc-900 bg-zinc-50/80'
-                              : 'border-zinc-200 hover:border-zinc-300 bg-white'
+                              ? 'border-cyan-400/55 bg-sky-500/15'
+                              : 'border-sky-400/20 hover:border-cyan-400/40 bg-[#0a152e]/75'
                           }`}
                         >
                           <div className="min-w-0">
-                            <p className="text-xs font-semibold text-zinc-900">{tone.label}</p>
-                            <p className="text-[11px] text-zinc-500 line-clamp-1 mt-0.5">
+                            <p className="text-xs font-semibold text-white">{tone.label}</p>
+                            <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
                               {tone.instruction}
                             </p>
                           </div>
                           <span
                             className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-                              active ? 'bg-zinc-900 text-white' : 'border border-zinc-300 bg-white'
+                              active
+                                ? 'bg-gradient-to-br from-blue-600 to-cyan-500 text-white'
+                                : 'border border-sky-400/35 bg-slate-900'
                             }`}
                           >
                             {active && <Check className="w-3 h-3" />}
@@ -604,15 +629,15 @@ export function ChatSettingsModal({
                   </div>
                 </section>
 
-                <div className="border-t border-zinc-200/80 pt-5 space-y-5">
+                <div className="border-t border-sky-500/20 pt-5 space-y-5">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <Globe className="w-4 h-4 text-[#10a37f] shrink-0" />
-                      <p className="text-sm font-medium text-zinc-900">
+                      <Globe className="w-4 h-4 text-cyan-400 shrink-0" />
+                      <p className="text-sm font-medium text-white">
                         Google Search Grounding
                       </p>
                     </div>
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-slate-400">
                       Smart Auto keeps casual/coding chats instant while verifying facts, current events, and Islamic citations live on Google.
                     </p>
                     <div className="grid grid-cols-3 gap-2 pt-1">
@@ -629,8 +654,8 @@ export function ChatSettingsModal({
                           onClick={() => onChangeGoogleSearchMode(opt.id)}
                           className={`px-3 py-2 text-xs font-medium rounded-xl border transition-colors cursor-pointer ${
                             googleSearchMode === opt.id
-                              ? 'bg-zinc-900 text-white border-zinc-900'
-                              : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
+                              ? 'talash-neon-btn border-cyan-400/50'
+                              : 'bg-[#0a152e] text-slate-300 border-sky-400/20 hover:border-cyan-400/40'
                           }`}
                         >
                           {opt.label}
@@ -639,12 +664,12 @@ export function ChatSettingsModal({
                     </div>
                   </div>
 
-                  <div className="border-t border-zinc-100 pt-4 flex items-center justify-between gap-4">
+                  <div className="border-t border-sky-500/15 pt-4 flex items-center justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-zinc-900">
+                      <p className="text-sm font-medium text-white">
                         Show token usage details
                       </p>
-                      <p className="text-xs text-zinc-500 mt-0.5">
+                      <p className="text-xs text-slate-400 mt-0.5">
                         Display token counts beside reply timing beneath completed messages.
                       </p>
                     </div>
@@ -654,7 +679,7 @@ export function ChatSettingsModal({
                       aria-checked={showMetrics}
                       onClick={() => onToggleMetrics(!showMetrics)}
                       className={`w-11 h-6 rounded-full transition-colors p-0.5 shrink-0 cursor-pointer ${
-                        showMetrics ? 'bg-[#10a37f]' : 'bg-zinc-300'
+                        showMetrics ? 'bg-cyan-500' : 'bg-slate-700'
                       }`}
                     >
                       <span
@@ -670,23 +695,23 @@ export function ChatSettingsModal({
 
             {section === 'history' && (
               <div className="space-y-4">
-                <section className="rounded-2xl border border-zinc-200/85 bg-[#fafafa] p-4 space-y-3.5">
+                <section className="rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 p-4 space-y-3.5">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <h3 className="text-sm font-semibold text-zinc-900">Saved History</h3>
-                      <p className="text-xs text-zinc-500 mt-0.5 tabular-nums">
+                      <h3 className="text-sm font-semibold text-white">Saved History</h3>
+                      <p className="text-xs text-slate-400 mt-0.5 tabular-nums">
                         Up to 20 previous chats stay saved automatically when you start a new chat.
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-1 p-1 bg-zinc-200/70 rounded-xl">
+                    <div className="flex items-center gap-1 p-1 bg-[#050b19] border border-sky-500/20 rounded-xl">
                       <button
                         type="button"
                         onClick={() => setHistorySubTab('chats')}
                         className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
                           historySubTab === 'chats'
-                            ? 'bg-white text-zinc-900 shadow-xs'
-                            : 'text-zinc-600 hover:text-zinc-900'
+                            ? 'bg-sky-500/25 text-white border border-cyan-400/40'
+                            : 'text-slate-400 hover:text-white'
                         }`}
                       >
                         Chats ({previousSavedCount}/20)
@@ -696,8 +721,8 @@ export function ChatSettingsModal({
                         onClick={() => setHistorySubTab('workbench')}
                         className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap cursor-pointer ${
                           historySubTab === 'workbench'
-                            ? 'bg-white text-zinc-900 shadow-xs'
-                            : 'text-zinc-600 hover:text-zinc-900'
+                            ? 'bg-sky-500/25 text-white border border-cyan-400/40'
+                            : 'text-slate-400 hover:text-white'
                         }`}
                       >
                         Workbench ({history.length})
@@ -706,7 +731,7 @@ export function ChatSettingsModal({
                   </div>
 
                   <div className="relative">
-                    <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="text"
                       value={historySearch}
@@ -716,29 +741,29 @@ export function ChatSettingsModal({
                           ? 'Search saved chats...'
                           : 'Search workbench runs...'
                       }
-                      className="w-full pl-9 pr-3.5 py-2 text-xs bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900"
+                      className="w-full pl-9 pr-3.5 py-2 text-xs bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
                     />
                   </div>
                 </section>
 
                 {historySubTab === 'chats' ? (
                   savedChats.length === 0 ? (
-                    <div className="p-8 text-center rounded-2xl border border-zinc-200 bg-[#fafafa] space-y-1.5">
-                      <MessageSquare className="w-6 h-6 text-zinc-400 mx-auto" />
-                      <p className="text-xs font-semibold text-zinc-800">No saved chats found</p>
-                      <p className="text-[11px] text-zinc-500">
+                    <div className="p-8 text-center rounded-2xl border border-sky-400/20 bg-[#0a152e]/70 space-y-1.5">
+                      <MessageSquare className="w-6 h-6 text-cyan-400 mx-auto" />
+                      <p className="text-xs font-semibold text-white">No saved chats found</p>
+                      <p className="text-[11px] text-slate-400">
                         Start a conversation and tap New Chat—your previous chats remain saved here.
                       </p>
                     </div>
                   ) : (
-                    <div className="divide-y divide-zinc-200/70 border border-zinc-200/90 rounded-2xl overflow-hidden bg-white">
+                    <div className="divide-y divide-sky-500/15 border border-sky-400/20 rounded-2xl overflow-hidden bg-[#0a152e]/75">
                       {savedChats.map((thread) => {
                         const isCurrent = thread.id === activeThreadId;
                         const lastMsg = thread.messages[thread.messages.length - 1];
                         return (
                           <div
                             key={thread.id}
-                            className="p-3.5 hover:bg-zinc-50/90 transition-colors flex items-start justify-between gap-3"
+                            className="p-3.5 hover:bg-sky-500/10 transition-colors flex items-start justify-between gap-3"
                           >
                             <button
                               type="button"
@@ -749,21 +774,21 @@ export function ChatSettingsModal({
                               className="flex-1 min-w-0 text-left cursor-pointer"
                             >
                               <div className="flex items-center gap-2 text-xs">
-                                <span className="font-semibold text-zinc-900 truncate">
+                                <span className="font-semibold text-white truncate">
                                   {thread.title}
                                 </span>
                                 {isCurrent && (
-                                  <span className="text-[11px] font-medium text-[#10a37f]">
+                                  <span className="text-[11px] font-medium text-cyan-400">
                                     · Current
                                   </span>
                                 )}
                               </div>
                               {lastMsg && (
-                                <p className="text-xs text-zinc-500 truncate mt-0.5">
+                                <p className="text-xs text-slate-400 truncate mt-0.5">
                                   {lastMsg.text}
                                 </p>
                               )}
-                              <p className="text-[11px] text-zinc-400 tabular-nums mt-1">
+                              <p className="text-[11px] text-slate-500 tabular-nums mt-1">
                                 {thread.messages.length}{' '}
                                 {thread.messages.length === 1 ? 'message' : 'messages'} ·{' '}
                                 {formatDateTime(thread.updatedAt)}
@@ -777,7 +802,7 @@ export function ChatSettingsModal({
                                   onOpenChatThread(thread.id);
                                   onClose();
                                 }}
-                                className="px-3 py-1.5 text-[11px] font-medium text-zinc-800 bg-zinc-100 hover:bg-zinc-200 rounded-lg cursor-pointer transition-colors"
+                                className="px-3 py-1.5 text-[11px] font-medium text-cyan-200 bg-sky-500/20 hover:bg-sky-500/30 border border-cyan-400/30 rounded-lg cursor-pointer transition-colors"
                               >
                                 Open
                               </button>
@@ -786,7 +811,7 @@ export function ChatSettingsModal({
                                   type="button"
                                   onClick={() => onDeleteChatThread(thread.id)}
                                   aria-label="Delete saved chat"
-                                  className="p-1.5 text-zinc-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors cursor-pointer"
+                                  className="p-1.5 text-slate-400 hover:text-red-300 rounded-lg hover:bg-red-500/15 transition-colors cursor-pointer"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
                                 </button>
@@ -798,19 +823,19 @@ export function ChatSettingsModal({
                     </div>
                   )
                 ) : filteredWorkbenchHistory.length === 0 ? (
-                  <div className="p-8 text-center rounded-2xl border border-zinc-200 bg-[#fafafa] space-y-1.5">
-                    <History className="w-6 h-6 text-zinc-400 mx-auto" />
-                    <p className="text-xs font-semibold text-zinc-800">No workbench runs recorded</p>
-                    <p className="text-[11px] text-zinc-500">
+                  <div className="p-8 text-center rounded-2xl border border-sky-400/20 bg-[#0a152e]/70 space-y-1.5">
+                    <History className="w-6 h-6 text-cyan-400 mx-auto" />
+                    <p className="text-xs font-semibold text-white">No workbench runs recorded</p>
+                    <p className="text-[11px] text-slate-400">
                       Run a prompt in the Workbench section to inspect and restore it here.
                     </p>
                   </div>
                 ) : (
-                  <div className="divide-y divide-zinc-200/70 border border-zinc-200/90 rounded-2xl overflow-hidden bg-white">
+                  <div className="divide-y divide-sky-500/15 border border-sky-400/20 rounded-2xl overflow-hidden bg-[#0a152e]/75">
                     {filteredWorkbenchHistory.map((entry) => (
                       <div
                         key={entry.id}
-                        className="p-3.5 hover:bg-zinc-50/90 transition-colors flex items-start justify-between gap-3"
+                        className="p-3.5 hover:bg-sky-500/10 transition-colors flex items-start justify-between gap-3"
                       >
                         <button
                           type="button"
@@ -820,11 +845,11 @@ export function ChatSettingsModal({
                           }}
                           className="flex-1 min-w-0 text-left cursor-pointer"
                         >
-                          <p className="text-xs font-semibold text-zinc-900 truncate">
+                          <p className="text-xs font-semibold text-white truncate">
                             {entry.prompt}
                           </p>
-                          <p className="text-xs text-zinc-500 truncate mt-0.5">{entry.output}</p>
-                          <p className="text-[11px] text-zinc-400 tabular-nums mt-1">
+                          <p className="text-xs text-slate-400 truncate mt-0.5">{entry.output}</p>
+                          <p className="text-[11px] text-slate-500 tabular-nums mt-1">
                             {entry.model} · {entry.durationMs} ms · {formatDateTime(entry.timestamp)}
                           </p>
                         </button>
@@ -832,7 +857,7 @@ export function ChatSettingsModal({
                           type="button"
                           onClick={() => onDeleteWorkbenchRun(entry.id)}
                           aria-label="Delete workbench run"
-                          className="p-1.5 text-zinc-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors shrink-0 cursor-pointer"
+                          className="p-1.5 text-slate-400 hover:text-red-300 rounded-lg hover:bg-red-500/15 transition-colors shrink-0 cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -847,10 +872,10 @@ export function ChatSettingsModal({
               <div className="space-y-6">
                 <section className="space-y-3">
                   <div>
-                    <h3 className="text-sm font-semibold text-zinc-900">
+                    <h3 className="text-sm font-semibold text-white">
                       Intelligent Model Routing
                     </h3>
-                    <p className="text-xs text-zinc-500 mt-0.5">
+                    <p className="text-xs text-slate-400 mt-0.5">
                       Smart Auto selects the fastest accurate model per query, or lock a specific model below.
                     </p>
                   </div>
@@ -866,18 +891,18 @@ export function ChatSettingsModal({
                           onClick={() => onSelectProfile(profile.profileId)}
                           className={`w-full text-left px-4 py-3 rounded-xl border transition-all flex items-center justify-between gap-3 ${
                             isLocked
-                              ? 'border-zinc-200 bg-zinc-50/60 opacity-60 cursor-not-allowed'
+                              ? 'border-sky-500/15 bg-[#050b19]/60 opacity-50 cursor-not-allowed'
                               : active
-                              ? 'border-zinc-900 bg-zinc-50/80 cursor-pointer'
-                              : 'border-zinc-200 hover:border-zinc-300 bg-white cursor-pointer'
+                              ? 'border-cyan-400/55 bg-sky-500/15 cursor-pointer'
+                              : 'border-sky-400/20 hover:border-cyan-400/40 bg-[#0a152e]/75 cursor-pointer'
                           }`}
                         >
                           <div className="min-w-0">
                             <div className="flex items-center gap-2">
-                              <span className="text-xs font-semibold text-zinc-900">
+                              <span className="text-xs font-semibold text-white">
                                 {profile.label}
                               </span>
-                              <span className="text-[11px] font-mono text-zinc-400">
+                              <span className="text-[11px] font-mono text-cyan-300/80">
                                 {profile.requiresOpenAI
                                   ? openAiConnected
                                     ? 'gpt-4o / gpt-4o-mini'
@@ -885,11 +910,13 @@ export function ChatSettingsModal({
                                   : profile.model}
                               </span>
                             </div>
-                            <p className="text-xs text-zinc-500 mt-0.5">{profile.subtitle}</p>
+                            <p className="text-xs text-slate-400 mt-0.5">{profile.subtitle}</p>
                           </div>
                           <span
                             className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-                              active ? 'bg-zinc-900 text-white' : 'border border-zinc-300 bg-white'
+                              active
+                                ? 'bg-gradient-to-br from-blue-600 to-cyan-500 text-white'
+                                : 'border border-sky-400/35 bg-slate-900'
                             }`}
                           >
                             {active && <Check className="w-3 h-3" />}
@@ -900,10 +927,10 @@ export function ChatSettingsModal({
                   </div>
                 </section>
 
-                <section className="border-t border-zinc-200/80 pt-5 space-y-3">
+                <section className="border-t border-sky-500/20 pt-5 space-y-3">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold text-zinc-900">Reasoning Depth</h3>
-                    <span className="text-xs font-mono text-zinc-500">
+                    <h3 className="text-sm font-semibold text-white">Reasoning Depth</h3>
+                    <span className="text-xs font-mono text-cyan-300">
                       {thinkingLevel === 'DEFAULT' ? 'Auto' : thinkingLevel}
                     </span>
                   </div>
@@ -915,8 +942,8 @@ export function ChatSettingsModal({
                         onClick={() => onChangeThinking(level)}
                         className={`px-3.5 py-1.5 text-xs font-medium rounded-xl border transition-colors whitespace-nowrap cursor-pointer ${
                           thinkingLevel === level
-                            ? 'bg-zinc-900 text-white border-zinc-900'
-                            : 'bg-white text-zinc-600 border-zinc-200 hover:border-zinc-300 hover:text-zinc-900'
+                            ? 'talash-neon-btn border-cyan-400/50'
+                            : 'bg-[#0a152e] text-slate-300 border-sky-400/20 hover:border-cyan-400/40 hover:text-white'
                         }`}
                       >
                         {level === 'DEFAULT'
@@ -930,15 +957,15 @@ export function ChatSettingsModal({
                 </section>
 
                 {/* Dual-Model Synthesis Toggle */}
-                <section className="border-t border-zinc-200/80 pt-5 flex items-center justify-between gap-4">
+                <section className="border-t border-sky-500/20 pt-5 flex items-center justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-[#10a37f] shrink-0" />
-                      <p className="text-sm font-medium text-zinc-900">
+                      <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+                      <p className="text-sm font-medium text-white">
                         Multi-Model Cross-Verification
                       </p>
                     </div>
-                    <p className="text-xs text-zinc-500 mt-0.5">
+                    <p className="text-xs text-slate-400 mt-0.5">
                       {openAiConnected
                         ? 'Compares OpenAI GPT and Google Gemini answers before synthesizing one verified reply.'
                         : 'Requires OPENAI_API_KEY in server Secrets to enable OpenAI + Gemini synthesis.'}
@@ -952,10 +979,10 @@ export function ChatSettingsModal({
                     onClick={() => onToggleVerifyMode(!verifyMode)}
                     className={`w-11 h-6 rounded-full transition-colors p-0.5 shrink-0 ${
                       !openAiConnected
-                        ? 'bg-zinc-200 cursor-not-allowed'
+                        ? 'bg-slate-800 cursor-not-allowed'
                         : verifyMode
-                        ? 'bg-[#10a37f] cursor-pointer'
-                        : 'bg-zinc-300 cursor-pointer'
+                        ? 'bg-cyan-500 cursor-pointer'
+                        : 'bg-slate-700 cursor-pointer'
                     }`}
                   >
                     <span
@@ -966,26 +993,26 @@ export function ChatSettingsModal({
                   </button>
                 </section>
 
-                <section className="border-t border-zinc-200/80 pt-5 space-y-2.5">
+                <section className="border-t border-sky-500/20 pt-5 space-y-2.5">
                   <div className="flex items-center gap-2">
-                    <KeyRound className="w-4 h-4 text-[#10a37f] shrink-0" />
-                    <h3 className="text-xs font-semibold text-zinc-900">
+                    <KeyRound className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <h3 className="text-xs font-semibold text-white">
                       Connected AI Backends (Server Secrets)
                     </h3>
                   </div>
 
-                  <div className="rounded-2xl border border-zinc-200/85 bg-[#fafafa] p-3.5 space-y-2 text-xs">
+                  <div className="rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 p-3.5 space-y-2 text-xs">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-medium text-zinc-900">Google Gemini + Search Grounding</span>
-                      <span className="font-mono text-[11px] text-emerald-700 font-semibold">
+                      <span className="font-medium text-white">Google Gemini + Search Grounding</span>
+                      <span className="font-mono text-[11px] text-emerald-300 font-semibold">
                         {capabilities?.gemini?.connected ? 'Connected' : 'Check GEMINI_API_KEY'}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-zinc-200/70">
-                      <span className="font-medium text-zinc-900">OpenAI ChatGPT API</span>
+                    <div className="flex items-center justify-between gap-2 pt-2 border-t border-sky-500/15">
+                      <span className="font-medium text-white">OpenAI ChatGPT API</span>
                       <span
                         className={`font-mono text-[11px] font-semibold ${
-                          openAiConnected ? 'text-emerald-700' : 'text-zinc-500'
+                          openAiConnected ? 'text-emerald-300' : 'text-slate-400'
                         }`}
                       >
                         {openAiConnected ? 'Connected' : 'Not configured'}
@@ -999,8 +1026,8 @@ export function ChatSettingsModal({
             {section === 'personalization' && (
               <section className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-semibold text-zinc-900">Custom Instructions</h3>
-                  <p className="text-xs text-zinc-500 mt-0.5">
+                  <h3 className="text-sm font-semibold text-white">Custom Instructions</h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
                     Define how structured, concise, or detailed TALASH Ai should be in every reply.
                   </p>
                 </div>
@@ -1010,11 +1037,11 @@ export function ChatSettingsModal({
                   value={chatSystemInstruction}
                   onChange={(e) => onChangeCustomPersona(e.target.value)}
                   placeholder="Describe your preferred tone, language, or formatting style..."
-                  className="w-full px-3.5 py-3 text-xs leading-relaxed bg-[#fafafa] border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:bg-white focus:border-zinc-900 resize-y"
+                  className="w-full px-3.5 py-3 text-xs leading-relaxed bg-[#050b19] border border-sky-400/25 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400 resize-y"
                 />
 
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-[11px] text-zinc-500 tabular-nums">
+                  <span className="text-[11px] text-slate-400 tabular-nums">
                     {chatSystemInstruction.length} characters
                   </span>
                   <button
@@ -1023,9 +1050,9 @@ export function ChatSettingsModal({
                       onSelectTone('concise');
                       onChangeCustomPersona(DEFAULT_CONCISE_SYSTEM_INSTRUCTION);
                     }}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium text-zinc-800 bg-white border border-zinc-200 hover:bg-zinc-100 rounded-xl transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium text-slate-200 bg-slate-900 border border-sky-400/25 hover:bg-sky-500/15 rounded-xl transition-colors cursor-pointer"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
+                    <RotateCcw className="w-3.5 h-3.5 text-cyan-400" />
                     <span>Reset to Default</span>
                   </button>
                 </div>
@@ -1034,37 +1061,37 @@ export function ChatSettingsModal({
 
             {section === 'data' && (
               <div className="space-y-3">
-                <div className="rounded-2xl border border-zinc-200/85 bg-[#fafafa] p-4 flex items-center justify-between gap-4">
+                <div className="rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 p-4 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">Install TALASH Ai App</p>
-                    <p className="text-xs text-zinc-500 mt-0.5">
+                    <p className="text-sm font-medium text-white">Install TALASH Ai App</p>
+                    <p className="text-xs text-slate-400 mt-0.5">
                       Install TALASH Ai as an app on Android, iOS, or Desktop.
                     </p>
                   </div>
                   <PWAInstallButton compact />
                 </div>
 
-                <div className="rounded-2xl border border-zinc-200/85 bg-[#fafafa] p-4 flex items-center justify-between gap-4">
+                <div className="rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 p-4 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">Export active conversation</p>
-                    <p className="text-xs text-zinc-500 mt-0.5">
+                    <p className="text-sm font-medium text-white">Export active conversation</p>
+                    <p className="text-xs text-slate-400 mt-0.5">
                       Download the current chat thread as a Markdown file.
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={onExportActiveChat}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-zinc-800 bg-white border border-zinc-200 hover:bg-zinc-100 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-slate-200 bg-slate-900 border border-sky-400/25 hover:bg-sky-500/15 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
                   >
-                    <Download className="w-3.5 h-3.5" />
+                    <Download className="w-3.5 h-3.5 text-cyan-400" />
                     <span>Export .md</span>
                   </button>
                 </div>
 
-                <div className="rounded-2xl border border-zinc-200/85 bg-[#fafafa] p-4 flex items-center justify-between gap-4">
+                <div className="rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 p-4 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">Clear all saved chats</p>
-                    <p className="text-xs text-zinc-500 mt-0.5 tabular-nums">
+                    <p className="text-sm font-medium text-white">Clear all saved chats</p>
+                    <p className="text-xs text-slate-400 mt-0.5 tabular-nums">
                       Remove {previousSavedCount} previous chat
                       {previousSavedCount === 1 ? '' : 's'} and reset the active session.
                     </p>
@@ -1072,17 +1099,17 @@ export function ChatSettingsModal({
                   <button
                     type="button"
                     onClick={onClearAllChats}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-red-600 bg-white border border-red-200 hover:bg-red-50 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-red-200 bg-red-950/50 border border-red-400/30 hover:bg-red-600/30 rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>Delete Chats</span>
                   </button>
                 </div>
 
-                <div className="rounded-2xl border border-zinc-200/85 bg-[#fafafa] p-4 flex items-center justify-between gap-4">
+                <div className="rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 p-4 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">Clear workbench run history</p>
-                    <p className="text-xs text-zinc-500 mt-0.5 tabular-nums">
+                    <p className="text-sm font-medium text-white">Clear workbench run history</p>
+                    <p className="text-xs text-slate-400 mt-0.5 tabular-nums">
                       {history.length} saved workbench run{history.length === 1 ? '' : 's'} in local
                       storage.
                     </p>
@@ -1091,16 +1118,16 @@ export function ChatSettingsModal({
                     type="button"
                     onClick={onClearHistory}
                     disabled={history.length === 0}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-red-600 bg-white border border-red-200 hover:bg-red-50 disabled:opacity-45 disabled:cursor-not-allowed rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-red-200 bg-red-950/50 border border-red-400/30 hover:bg-red-600/30 disabled:opacity-45 disabled:cursor-not-allowed rounded-xl whitespace-nowrap shrink-0 cursor-pointer transition-colors"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>Clear History</span>
                   </button>
                 </div>
-                <div className="rounded-2xl border border-zinc-200/85 bg-[#fafafa] p-4 flex items-center justify-between gap-4">
+                <div className="rounded-2xl border border-sky-400/25 bg-[#0a152e]/85 p-4 flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-semibold text-zinc-900">TALASH Ai &middot; v1.0.0</p>
-                    <p className="text-[11px] text-zinc-500 mt-0.5">
+                    <p className="text-xs font-semibold text-white">TALASH Ai &middot; v1.0.0</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5">
                       Created by Shams Talash &middot; Package ID: com.shamstalash.talashai
                     </p>
                   </div>

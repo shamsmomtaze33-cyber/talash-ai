@@ -2525,6 +2525,68 @@ ${urls
     }
   });
 
+  app.post('/api/generate-image', requireAuth, async (req, res) => {
+    const { prompt, aspectRatio = '1:1' } = req.body ?? {};
+    const trimmedPrompt = typeof prompt === 'string' ? prompt.trim() : '';
+    if (!trimmedPrompt) {
+      res.status(400).json({ error: 'Please describe the image you want TALASH Ai to create.' });
+      return;
+    }
+
+    const allowedRatios = new Set(['1:1', '3:4', '4:3', '9:16', '16:9']);
+    const safeRatio =
+      typeof aspectRatio === 'string' && allowedRatios.has(aspectRatio) ? aspectRatio : '1:1';
+
+    const startTime = Date.now();
+    try {
+      const ai = getGeminiClient();
+      const response = await ai.models.generateContent({
+        model: 'gemini-3.1-flash-lite-image',
+        contents: {
+          parts: [{ text: trimmedPrompt }],
+        },
+        config: {
+          imageConfig: {
+            aspectRatio: safeRatio,
+          },
+        },
+      });
+
+      let imageDataUrl = '';
+      let mimeType = 'image/png';
+      let caption = '';
+
+      for (const part of response.candidates?.[0]?.content?.parts ?? []) {
+        if (part.inlineData?.data && !imageDataUrl) {
+          mimeType = part.inlineData.mimeType ?? 'image/png';
+          imageDataUrl = `data:${mimeType};base64,${part.inlineData.data}`;
+        } else if (part.text) {
+          caption += part.text;
+        }
+      }
+
+      if (!imageDataUrl) {
+        res.status(502).json({
+          error:
+            caption.trim() ||
+            'The image model did not return an image for this prompt. Try refining your description.',
+        });
+        return;
+      }
+
+      res.json({
+        imageDataUrl,
+        mimeType,
+        caption: caption.trim() || null,
+        aspectRatio: safeRatio,
+        durationMs: Date.now() - startTime,
+      });
+    } catch (err) {
+      const { status, message } = extractErrorDetails(err);
+      res.status(status).json({ error: message });
+    }
+  });
+
   if (process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({

@@ -10,15 +10,17 @@
     />
     <meta name="author" content="Shams Talash" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#18181b" />
+    <meta name="theme-color" content="#030712" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="TALASH Ai" />
     <!-- GOOGLE_SITE_VERIFICATION_META -->
 
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="/pwa-512x512.png" />
 
     <!-- OpenGraph -->
     <meta property="og:site_name" content="TALASH Ai" />
@@ -28,7 +30,7 @@
       content="Fast, accurate AI assistant and verified Islamic Learning platform in Pashto, Arabic, and English. Created by Shams Talash."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/pwa-512x512.png" />
+    <meta property="og:image" content="/og-cover.png" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -37,7 +39,7 @@
       name="twitter:description"
       content="Fast, accurate AI assistant and verified Islamic Learning platform in Pashto, Arabic, and English. Created by Shams Talash."
     />
-    <meta name="twitter:image" content="/pwa-512x512.png" />
+    <meta name="twitter:image" content="/og-cover.png" />
 
     <!-- Structured Data (Schema.org JSON-LD) -->
     <script type="application/ld+json">
@@ -62,9 +64,47 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400..700;1,400..700&display=swap"
       rel="stylesheet"
     />
+    <style>
+      @keyframes talashBootSpin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
-  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
-    <div id="root"></div>
+  <body class="bg-[#030712] text-slate-100 antialiased selection:bg-sky-500/30 selection:text-cyan-100">
+    <div id="root">
+      <div
+        id="talash-boot-splash"
+        style="position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:space-between;background:radial-gradient(ellipse at 50% 0%,rgba(29,107,255,.22),transparent 58%),#030712;color:#fff;padding:40px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;"
+      >
+        <div style="height:16px"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;max-width:420px;width:100%;">
+          <div style="position:relative;width:144px;height:144px;border-radius:9999px;padding:3px;border:1px solid rgba(34,211,238,.45);box-shadow:0 0 42px rgba(37,99,235,.55);background:#030712;">
+            <img
+              src="/pwa-512x512.png"
+              alt="TALASH Ai"
+              style="width:100%;height:100%;object-fit:cover;border-radius:9999px;display:block;"
+            />
+          </div>
+          <div>
+            <div style="font-size:36px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;">
+              TALASH <span style="color:#38BDF8;font-style:italic;">Ai</span>
+            </div>
+            <div style="margin-top:10px;display:flex;align-items:center;justify-content:center;gap:12px;">
+              <span style="height:1px;width:44px;background:linear-gradient(to right,transparent,#22d3ee);"></span>
+              <span style="font-size:13px;font-style:italic;color:#e2e8f0;">Your Intelligent AI Assistant</span>
+              <span style="height:1px;width:44px;background:linear-gradient(to left,transparent,#22d3ee);"></span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:6px;">
+            <div style="width:40px;height:40px;border-radius:9999px;border:2px solid #0c2342;border-top-color:#22d3ee;border-right-color:#0ea5e9;animation:talashBootSpin 1s linear infinite;"></div>
+            <span style="font-size:12px;color:#cbd5e1;">Loading...</span>
+          </div>
+        </div>
+        <div style="font-size:12px;color:#94a3b8;">
+          Created by: <strong style="color:#38BDF8;">Shams Talash</strong>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
